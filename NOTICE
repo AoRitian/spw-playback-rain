@@ -1,0 +1,8 @@
+Playback Rain
+Copyright (C) 2026 aoritian
+
+The raindrop rendering algorithm is ported from BetterLyrics
+(https://github.com/jayfunc/BetterLyrics), licensed under GPL-3.0.
+The original effect credits shadertoy.com/view/ltffzl.
+
+This mod is distributed under GPL-3.0. See LICENSE.

@@ -1,0 +1,69 @@
+{
+  "configs": [
+    {
+      "title": "播放页雨滴",
+      "config": "config.json",
+      "preferences": [
+        {
+          "key": "rain.enabled",
+          "type": "switch",
+          "title": "启用雨滴",
+          "summary": "在播放页歌词背景显示雨滴层",
+          "default_value": true
+        },
+        {
+          "key": "rain.playbackOnly",
+          "type": "switch",
+          "title": "仅播放页显示",
+          "summary": "退出播放页后自动隐藏雨滴",
+          "default_value": true
+        },
+        {
+          "key": "rain.speed",
+          "type": "list",
+          "title": "雨速",
+          "summary": "雨滴下落速度",
+          "entries": ["慢", "正常", "快"],
+          "entry_values": ["60", "100", "150"],
+          "default_value": "100"
+        },
+        {
+          "key": "rain.size",
+          "type": "list",
+          "title": "雨滴大小",
+          "summary": "雨滴和水痕的尺寸",
+          "entries": ["小", "中", "大"],
+          "entry_values": ["70", "100", "140"],
+          "default_value": "100"
+        },
+        {
+          "key": "rain.density",
+          "type": "list",
+          "title": "雨滴密度",
+          "summary": "同时出现的雨滴数量",
+          "entries": ["低", "中", "高"],
+          "entry_values": ["20", "40", "65"],
+          "default_value": "40"
+        },
+        {
+          "key": "rain.lightAngle",
+          "type": "list",
+          "title": "光照角度",
+          "summary": "雨滴高光方向",
+          "entries": ["左", "左上", "上"],
+          "entry_values": ["180", "135", "90"],
+          "default_value": "135"
+        },
+        {
+          "key": "rain.shadow",
+          "type": "list",
+          "title": "边缘阴影",
+          "summary": "雨滴边缘暗部强度",
+          "entries": ["关", "中", "强"],
+          "entry_values": ["0", "50", "100"],
+          "default_value": "0"
+        }
+      ]
+    }
+  ]
+}
