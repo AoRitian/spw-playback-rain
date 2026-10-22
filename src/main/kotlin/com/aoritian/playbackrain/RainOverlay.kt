@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import kotlinx.coroutines.flow.StateFlow
 
 @Composable
-fun RainOverlay(settingsFlow: StateFlow<RainSettings>) {
+fun RainOverlay(settingsFlow: StateFlow<RainSettings>, label: String = "") {
     val settings by settingsFlow.collectAsState()
     val playbackExpanded by PlaybackPresence.expanded.collectAsState()
     val playbackVisible by PlaybackPresence.visible.collectAsState()
@@ -23,7 +23,7 @@ fun RainOverlay(settingsFlow: StateFlow<RainSettings>) {
 
     val time = remember { mutableFloatStateOf(0f) }
     LaunchedEffect(Unit) {
-        PluginLog.log("rain overlay composed")
+        PluginLog.log("rain overlay composed $label")
         var startNs = 0L
         startNs = withFrameNanos { it }
         while (true) {

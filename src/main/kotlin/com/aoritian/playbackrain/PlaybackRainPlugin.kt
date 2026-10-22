@@ -24,12 +24,18 @@ class PlaybackRainPlugin(
     private val settingsState = kotlinx.coroutines.flow.MutableStateFlow(RainSettings())
 
     override fun start() {
-        PluginLog.init(WorkshopApi.manager.createConfigManager().getConfig().getConfigPath().parent?.toFile())
+        PluginLog.init(
+            WorkshopApi.manager.createConfigManager()
+                .getConfig()
+                .getConfigPath()
+                .parent
+                ?.toFile()
+        )
         PluginLog.log("start version=${pluginContext.spwVersion}")
         if (!WorkshopApi.manager.isPermissionGranted(PluginPermission.CLASS_TRANSFORM)) {
             PluginLog.log("missing CLASS_TRANSFORM permission")
             WorkshopApi.ui.toast(
-                "播放页雨滴需要授予“修改界面”权限",
+                "\u64AD\u653E\u9875\u96E8\u6EF4\u9700\u8981\u6388\u4E88\u201C\u4FEE\u6539\u754C\u9762\u201D\u6743\u9650",
                 WorkshopApi.Ui.ToastType.Warning
             )
             return
@@ -38,23 +44,13 @@ class PlaybackRainPlugin(
         configManager = WorkshopApi.manager.createConfigManager()
         configHelper = configManager.getConfig()
         settingsState.value = RainConfig.read(configHelper)
-
         val listener = Consumer<ConfigHelper> { helper ->
             settingsState.value = RainConfig.read(helper)
         }
         configListener = listener
         configManager.addConfigChangeListener(listener)
 
-        val target = RainTargets.forVersion(pluginContext.spwVersion)
-        if (target == null) {
-            PluginLog.log("unsupported host version=${pluginContext.spwVersion}")
-            WorkshopApi.ui.toast(
-                "当前宿主版本暂不支持播放页雨滴",
-                WorkshopApi.Ui.ToastType.Warning
-            )
-            return
-        }
-
+        val target = RainTargets.latest
         try {
             rainHandle = WorkshopApi.hookRegistrar.afterComposable(
                 className = target.className,
@@ -65,22 +61,24 @@ class PlaybackRainPlugin(
                 RainOverlay(settingsState)
             }
             PluginLog.log("rain hook installed")
-            WorkshopApi.ui.toast("播放页雨滴已启用", WorkshopApi.Ui.ToastType.Success)
+            WorkshopApi.ui.toast(
+                "\u64AD\u653E\u9875\u96E8\u6EF4\u5DF2\u542F\u7528",
+                WorkshopApi.Ui.ToastType.Success
+            )
         } catch (failure: Throwable) {
             PluginLog.log(
                 "rain hook failed: ${failure.javaClass.name}: ${failure.message}"
             )
             WorkshopApi.ui.toast(
-                "播放页雨滴 Hook 安装失败: ${failure.message ?: failure.javaClass.simpleName}",
+                "\u64AD\u653E\u9875\u96E8\u6EF4 Hook \u5B89\u88C5\u5931\u8D25",
                 WorkshopApi.Ui.ToastType.Error
             )
         }
-        installPresenceHooks(pluginContext.spwVersion)
+        installPresenceHooks()
     }
 
-    private fun installPresenceHooks(version: String) {
-        if (version != "1.19.0") return
-        val expanded = RainTargets.sheetExpanded1190
+    private fun installPresenceHooks() {
+        val expanded = RainTargets.sheetExpanded
         try {
             sheetExpandedHandle = WorkshopApi.hookRegistrar.hookMethod(
                 className = expanded.className,
@@ -97,7 +95,7 @@ class PlaybackRainPlugin(
                 "playback expanded hook failed: ${failure.javaClass.name}: ${failure.message}"
             )
         }
-        val visible = RainTargets.sheetVisible1190
+        val visible = RainTargets.sheetVisible
         try {
             sheetVisibleHandle = WorkshopApi.hookRegistrar.hookMethod(
                 className = visible.className,

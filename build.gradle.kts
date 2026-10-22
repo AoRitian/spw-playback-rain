@@ -1,4 +1,4 @@
-﻿import com.xuncorp.spw.workshop.gradle.PluginPermission
+import com.xuncorp.spw.workshop.gradle.PluginPermission
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.aoritian.playbackrain"
-version = "1.0.2"
+version = "1.0.3"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_25
@@ -39,15 +39,12 @@ dependencies {
 spmod {
     PluginClass = "com.aoritian.playbackrain.PlaybackRainPlugin"
     PluginId = "com.aoritian.playbackrain"
-    PluginName = "播放页雨滴"
-    PluginDescription = "播放页歌词背景雨滴效果"
-    PluginVersion = "1.0.2"
+    PluginName = "\u64AD\u653E\u9875\u96E8\u6EF4"
+    PluginDescription = "\u64AD\u653E\u9875\u6B4C\u8BCD\u80CC\u666F\u96E8\u6EF4\u6548\u679C"
+    PluginVersion = "1.0.3"
     PluginProvider = "aoritian"
     PluginHasConfig = true
     PluginPermissions = listOf(
         PluginPermission.CLASS_TRANSFORM
     )
 }
-
-
-
